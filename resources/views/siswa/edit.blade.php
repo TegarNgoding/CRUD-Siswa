@@ -2,31 +2,67 @@
 
 @section('content')
 
-<div class="container">
+<div class="row justify-content-center">
 
-    <div class="row justify-content-center">
+    <div class="col-md-8">
 
-        <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-4">
 
-            <div class="card shadow-sm border-0">
+            <div class="card-header bg-warning bg-gradient text-dark p-3 rounded-top-4">
 
-                <div class="card-header bg-white fw-bold">Edit Data Siswa</div>
+                <h5 class="mb-0 fw-bold">
 
-                <div class="card-body">
+                    <i class="bi bi-pencil-square me-2"></i>Edit Data Siswa
 
-                    <form action="{{ route('siswa.update', $siswa->id) }}" method="POST">
+                </h5>
 
-                        @csrf
+            </div>
 
-                        @method('PUT')
+            <div class="card-body p-4">
 
-                        <div class="mb-3">
+                <form action="{{ route('siswa.update', $siswa->id) }}" method="POST">
 
-                            <label class="form-label">NISN</label>
+                    @csrf
 
-                            <input type="text" class="form-control @error('nisn') is-invalid @enderror" name="nisn" value="{{ old('nisn', $siswa->nisn) }}">
+                    @method('PUT')
 
-                            @error('nisn')
+                    <div class="mb-3">
+
+                        <label for="nisn" class="form-label fw-semibold">NISN</label>
+
+                        <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn" name="nisn" value="{{ old('nisn', $siswa->nisn) }}">
+
+                        @error('nisn')
+
+                            <div class="invalid-feedback">{{ $message }}</div>
+
+                        @enderror
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label for="nama" class="form-label fw-semibold">Nama Lengkap</label>
+
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama', $siswa->nama) }}">
+
+                        @error('nama')
+
+                            <div class="invalid-feedback">{{ $message }}</div>
+
+                        @enderror
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+
+                            <label for="kelas" class="form-label fw-semibold">Kelas</label>
+
+                            <input type="text" class="form-control @error('kelas') is-invalid @enderror" id="kelas" name="kelas" value="{{ old('kelas', $siswa->kelas) }}">
+
+                            @error('kelas')
 
                                 <div class="invalid-feedback">{{ $message }}</div>
 
@@ -34,25 +70,11 @@
 
                         </div>
 
-                        <div class="mb-3">
+                        <div class="col-md-6">
 
-                            <label class="form-label">Nama Lengkap</label>
+                            <label for="jenis_kelamin" class="form-label fw-semibold">Jenis Kelamin</label>
 
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama', $siswa->nama) }}">
-
-                            @error('nama')
-
-                                <div class="invalid-feedback">{{ $message }}</div>
-
-                            @enderror
-
-                        </div>
-
-                        <div class="mb-3">
-
-                            <label class="form-label">Jenis Kelamin</label>
-
-                            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin">
+                            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
 
                                 <option value="L" {{ old('jenis_kelamin', $siswa->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
 
@@ -68,45 +90,39 @@
 
                         </div>
 
-                        <div class="mb-3">
+                    </div>
 
-                            <label class="form-label">Kelas</label>
+                    <div class="mb-4">
 
-                            <input type="text" class="form-control @error('kelas') is-invalid @enderror" name="kelas" value="{{ old('kelas', $siswa->kelas) }}">
+                        <label for="alamat" class="form-label fw-semibold">Alamat Lengkap</label>
 
-                            @error('kelas')
+                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3">{{ old('alamat', $siswa->alamat) }}</textarea>
 
-                                <div class="invalid-feedback">{{ $message }}</div>
+                        @error('alamat')
 
-                            @enderror
+                            <div class="invalid-feedback">{{ $message }}</div>
 
-                        </div>
+                        @enderror
 
-                        <div class="mb-3">
+                    </div>
 
-                            <label class="form-label">Alamat</label>
+                    <div class="d-flex justify-content-between">
 
-                            <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" rows="3">{{ old('alamat', $siswa->alamat) }}</textarea>
+                        <a href="{{ route('siswa.index') }}" class="btn btn-outline-secondary px-4 rounded-pill">
 
-                            @error('alamat')
+                            <i class="bi bi-arrow-left me-1"></i> Batal
 
-                                <div class="invalid-feedback">{{ $message }}</div>
+                        </a>
 
-                            @enderror
+                        <button type="submit" class="btn btn-warning bg-gradient px-4 rounded-pill shadow-sm">
 
-                        </div>
+                            <i class="bi bi-check-circle me-1"></i> Perbarui Data
 
-                        <div class="d-flex justify-content-between">
+                        </button>
 
-                            <a href="{{ route('siswa.index') }}" class="btn btn-secondary">Batal</a>
+                    </div>
 
-                            <button type="submit" class="btn btn-success text-white">Perbarui Data</button>
-
-                        </div>
-
-                    </form>
-
-                </div>
+                </form>
 
             </div>
 
