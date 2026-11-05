@@ -115,5 +115,70 @@ class SiswaController extends Controller
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus!');
 
     }
+    // 1. Metode Store (Menyimpan Foto Baru)
+public function store(Request $request)
+{
+    $request->validate([
+        'nisn'          => 'required|unique:siswas,nisn',
+        'nama'          => 'required',
+        'jenis_kelamin' => 'required',
+        'kelas'         => 'required',
+        'alamat'        => 'required',
+        'foto'          => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
+
+    $data = $request->all();
+
+    if ($request->hasFile('foto')) {
+        $image = $request->file('foto');
+        $image->storeAs('public/foto_siswa', $image->hashName());
+        $data['foto'] = $image->hashName();
+    }
+
+    Siswa::create($data);
+    return redirect()->route('siswa.index')->with('success', 'Data siswa dan foto berhasil ditambahkan!');
+}
+
+// 2. Metode Update (Memperbarui Foto dan Menghapus Foto Lama)
+public function update(Request $request, Siswa $siswa)
+{
+    $request->validate([
+        'nisn'          => 'required|unique:siswas,nisn,' . $siswa->id,
+        'nama'          => 'required',
+        'jenis_kelamin' => 'required',
+        'kelas'         => 'required',
+        'alamat'        => 'required',
+        'foto'          => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
+
+    $data = $request->all();
+
+    if ($request->hasFile('foto')) {
+        $image = $request->file('foto');
+        $image->storeAs('public/foto_siswa', $image->hashName());
+
+        // Hapus foto lama jika ada
+        if ($siswa->foto) {
+            Storage::delete('public/foto_siswa/' . $siswa->foto);
+        }
+
+        $data['foto'] = $image->hashName();
+    }
+
+    $siswa->update($data);
+    return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
+}
+
+// 3. Metode Destroy (Menghapus Data Sekaligus Foto Terkait)
+public function destroy(Siswa $siswa)
+{
+    if ($siswa->foto) {
+        Storage::delete('public/foto_siswa/' . $siswa->foto);
+    }
+
+    $siswa->delete();
+    return redirect()->route('siswa.index')->with('success', 'Data siswa beserta fotonya berhasil dihapus!');
+}
+
 
 }
