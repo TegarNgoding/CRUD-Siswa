@@ -54,6 +54,8 @@
 
                                     <th class="text-center">Aksi</th>
 
+                                    <th>Foto</th>
+
                                 </tr>
 
                             </thead>
@@ -77,8 +79,11 @@
                                         <td>{{ $siswa->alamat }}</td>
 
                                         <td class="text-center">
-
-                                            <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                            <form
+                                                action="{{ route('siswa.destroy', $siswa->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');"
+                                            >
 
                                                 <a href="{{ route('siswa.edit', $siswa->id) }}" class="btn btn-warning btn-sm text-white">Edit</a>
 
@@ -91,14 +96,25 @@
                                             </form>
 
                                         </td>
-
+                                        <td class="text-center">
+                                            @if ($siswa->foto)
+                                                <img
+                                                    src="{{ asset('storage/foto_siswa/' . $siswa->foto) }}"
+                                                    class="rounded-circle shadow-sm"
+                                                    style="width: 48px; height: 48px; object-fit: cover;"
+                                                    alt="Foto {{ $siswa->nama }}"
+                                                >
+                                            @else
+                                                <span class="badge bg-secondary">Tidak ada foto</span>
+                                            @endif
+                                        </td>
                                     </tr>
 
                                 @empty
 
                                     <tr>
 
-                                        <td colspan="7" class="text-center text-muted">Data siswa belum tersedia.</td>
+                                        <td colspan="8" class="text-center text-muted">Data siswa belum tersedia.</td>
 
                                     </tr>
 

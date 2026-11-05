@@ -20,7 +20,7 @@
 
             <div class="card-body p-4">
 
-                <form action="{{ route('siswa.update', $siswa->id) }}" method="POST">
+                <form action="{{ route('siswa.update', $siswa->id) }}" method="POST" enctype="multipart/form-data">
 
                     @csrf
 
@@ -104,6 +104,24 @@
 
                         @enderror
 
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Foto Profil Siswa</label>
+                        <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto">
+
+                        @error('foto')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+
+                        @if ($siswa->foto)
+                            <img
+                                src="{{ asset('storage/foto_siswa/' . $siswa->foto) }}"
+                                alt="Foto {{ $siswa->nama }}"
+                                class="rounded mt-3"
+                                style="width: 96px; height: 96px; object-fit: cover;"
+                            >
+                        @endif
                     </div>
 
                     <div class="d-flex justify-content-between">

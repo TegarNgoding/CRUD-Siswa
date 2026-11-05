@@ -13,7 +13,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
-    Route::resource('siswa', SiswaController::class);
+    Route::resource('siswa', SiswaController::class)->except(['show']);
 });
 
 Route::get('/home', function () {
