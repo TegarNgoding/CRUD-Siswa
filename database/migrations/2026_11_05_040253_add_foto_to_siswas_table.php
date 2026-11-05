@@ -9,20 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('siswas', function (Blueprint $table) {
-            //
-        });
-    }
+   public function up(): void
+{
+    Schema::table('siswas', function (Blueprint $table) {
+        $table->string('foto')->nullable()->after('alamat');
+    });
+}
+
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::table('siswas', function (Blueprint $table) {
-            //
-        });
-    }
+   public function down(): void
+{
+    Schema::table('siswas', function (Blueprint $table) {
+        $table->dropColumn('foto');
+    });
+}
 };
