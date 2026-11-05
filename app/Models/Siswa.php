@@ -18,6 +18,7 @@ use HasFactory;protected $fillable = [
 
     'alamat',
 
-]
-;
+    'foto',
+
+];
 }
