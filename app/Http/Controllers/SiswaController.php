@@ -85,4 +85,3 @@ class SiswaController extends Controller
         return redirect()->route('siswa.index')
             ->with('success', 'Data siswa beserta fotonya berhasil dihapus!');
     }
-}
