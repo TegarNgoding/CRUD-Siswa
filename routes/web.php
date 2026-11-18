@@ -10,6 +10,12 @@ Route::get('/', function () {
         : redirect()->route('login');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/siswa/export/excel', [SiswaController::class, 'exportExcel'])->name('siswa.export.excel');
+    Route::get('/siswa/export/pdf', [SiswaController::class, 'exportPdf'])->name('siswa.export.pdf');
+    Route::resource('siswa', SiswaController::class);
+});
+
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
