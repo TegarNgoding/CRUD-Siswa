@@ -42,7 +42,20 @@
 
             </div>
 
-            
+            <div class="card-header bg-white d-flex justify-content-between align-items-center fw-bold">
+    <span>Daftar Data Siswa</span>
+    <div>
+        <a href="{{ route('siswa.export.excel') }}" class="btn btn-success btn-sm me-1">
+            <i class="bi bi-file-earmark-excel"></i> Export Excel
+        </a>
+        <a href="{{ route('siswa.export.pdf') }}" class="btn btn-danger btn-sm me-1">
+            <i class="bi bi-file-earmark-pdf"></i> Export PDF
+        </a>
+        <a href="{{ route('siswa.create') }}" class="btn btn-primary btn-sm">
+            <i class="bi bi-plus-lg"></i> Tambah Siswa
+        </a>
+    </div>
+    </div>
 
             <div class="card-body p-0">
 
@@ -175,6 +188,5 @@
         </div>
 
     </div>
-
 </div>
 @endsection
