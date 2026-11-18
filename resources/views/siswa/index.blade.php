@@ -14,7 +14,19 @@
 
                     <span>Daftar Data Siswa</span>
 
-                    <a href="{{ route('siswa.create') }}" class="btn btn-primary btn-sm">Tambah Siswa</a>
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <a href="{{ route('siswa.export.excel') }}" class="btn btn-success btn-sm">
+                            <i class="bi bi-file-earmark-excel"></i> Export Excel
+                        </a>
+
+                        <a href="{{ route('siswa.export.pdf') }}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-file-earmark-pdf"></i> Export PDF
+                        </a>
+
+                        <a href="{{ route('siswa.create') }}" class="btn btn-primary btn-sm">Tambah Siswa</a>
+
+                    </div>
 
                 </div>
 
