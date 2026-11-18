@@ -2,12 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SiswaExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
+    // Export Data ke Excel
+public function exportExcel()
+{
+    return Excel::download(new SiswaExport, 'data_siswa.xlsx');
+}
+
+// Export Data ke PDF
+public function exportPdf()
+{
+    $siswas = Siswa::all();
+    $pdf = Pdf::loadView('siswa.pdf', compact('siswas'));
+    return $pdf->download('data_siswa.pdf');
+}
     public function index()
     {
         $siswas = Siswa::latest()->paginate(10);
